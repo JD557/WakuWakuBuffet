@@ -6,8 +6,11 @@
   "dependencies": {
     "gulp": "*",
     "gulp-babel": "*",
+    "babel-preset-es2015": "*",
     "gulp-serve": "*"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "gulp-babel": "^6.1.1"
+  }
 }
-
