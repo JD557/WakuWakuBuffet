@@ -1,0 +1,13 @@
+{
+  "name": "LudumDare34",
+  "version": "0.0.1",
+  "description": "Ludum Dare 34 entry",
+  "author": "João Costa <jdpc557@gmail.org>",
+  "dependencies": {
+    "gulp": "*",
+    "gulp-babel": "*",
+    "gulp-serve": "*"
+  },
+  "private": true
+}
+
