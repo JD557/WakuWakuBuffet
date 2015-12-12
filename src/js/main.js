@@ -6,6 +6,8 @@ function loadImage(path) {
   return img;
 }
 
+var characterImg = loadImage('res/character.png');
+var backgroundImg = loadImage('res/background.png');
 var chickenImg = loadImage('res/chicken.png');
 var burgerImg = loadImage('res/burger.png');
 var brocolliImg = loadImage('res/brocolli.png');
@@ -77,12 +79,12 @@ class GameState {
 }
 
 const initialGameState = new GameState(
-  new Player(10, 16),
+  new Player(10, 144),
   [
-    new Chicken(40, 16),
-    new Brocolli(90, 16 + 32),
-    new Burger(75, 16),
-    new Burger(110, 16 + 32)
+    new Chicken(40, 144),
+    new Brocolli(90, 144 + 32),
+    new Burger(75, 144),
+    new Burger(110, 144 + 32)
   ],
   0
 );
@@ -93,13 +95,12 @@ btn2Callback = () => currentGameState.player.y += 32;
 
 function renderScore(ctx, score) {
   ctx.fillStyle = 'black';
-  ctx.font = '16pt Arial';
-  ctx.fillText('Score: ' + score, 400, 20);
+  ctx.font = '16px Monospace';
+  ctx.fillText('Score: ' + score, 16, 16);
 }
 
 function renderPlayer(ctx, player) {
-  ctx.fillStyle = 'green';
-  ctx.fillRect(10, player.y, 16, 16);
+  ctx.drawImage(characterImg, 10, player.y);
 }
 
 function renderFood(ctx, food) {
@@ -111,7 +112,8 @@ function renderFoods(ctx, foods) {
 }
 
 function renderGameState(ctx, state) {
-  ctx.clearRect(0, 0, 640, 480);
+  ctx.clearRect(0, 0, 256, 256);
+  ctx.drawImage(backgroundImg, 0, 0);
   renderFoods(ctx, state.foods);
   renderPlayer(ctx, state.player);
   renderScore(ctx, state.score);
