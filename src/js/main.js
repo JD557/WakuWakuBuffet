@@ -1,5 +1,11 @@
 const ctx = get2dContext();
 
+const foodScores = new Map([
+  ['chicken', 100],
+  ['burger', 100],
+  ['brocolli', -10],
+]);
+
 class Player {
   constructor(x, y) {
     this.x = x;
@@ -8,9 +14,10 @@ class Player {
 }
 
 class Food {
-  constructor(x, y) {
+  constructor(x, y, type) {
     this.x = x;
     this.y = y;
+    this.type = type;
   }
 }
 
@@ -24,7 +31,7 @@ class GameState {
     this.player = player;
     this.foods = foods;
     this.score = score;
-    this.foodSpeed = -5.0;
+    this.foodSpeed = -10.0;
   }
 
   nextTick(delta) {
@@ -33,14 +40,18 @@ class GameState {
     const consumedFoods = validFoods.filter(f => checkCollision(this.player, f))
     const newFoods = validFoods
       .filter(f => !checkCollision(this.player, f))
-      .map(f => new Food(f.x + increment, f.y));
-    return new GameState(this.player, newFoods, this.score + consumedFoods.length * 100);
+      .map(f => new Food(f.x + increment, f.y, f.type));
+    return new GameState(
+      this.player,
+      newFoods,
+      consumedFoods.map(f => foodScores.get(f.type)).reduce((x, y) => x + y, this.score)
+    );
   }
 }
 
 const initialGameState = new GameState(
   new Player(10, 10),
-  [new Food(30,10)],
+  [new Food(30, 10, 'chicken'), new Food(90, 20, 'brocolli')],
   0
 );
 var currentGameState = initialGameState;
