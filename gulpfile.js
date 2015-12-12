@@ -29,6 +29,6 @@ gulp.task('compile-resources', function() {
              .pipe(gulp.dest('dist/res'));
 });
 
-gulp.task('default', ['compile-js', 'compile-html', 'compile-css']);
+gulp.task('default', ['compile-js', 'compile-html', 'compile-css', 'compile-resources']);
 
 gulp.task('serve', ['default'], serve('dist'))

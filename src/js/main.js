@@ -1,10 +1,14 @@
 const ctx = get2dContext();
 
-const foodScores = new Map([
-  ['chicken', 100],
-  ['burger', 100],
-  ['brocolli', -10],
-]);
+function loadImage(path) {
+  var img = new Image();
+  img.src = path;
+  return img;
+}
+
+var chickenImg = loadImage('res/chicken.png');
+var burgerImg = loadImage('res/burger.png');
+var brocolliImg = loadImage('res/brocolli.png');
 
 class Player {
   constructor(x, y) {
@@ -14,16 +18,39 @@ class Player {
 }
 
 class Food {
-  constructor(x, y, type) {
+  constructor(x, y, score, img) {
     this.x = x;
     this.y = y;
-    this.type = type;
+    this.score = score;
+    this.img = img;
+  }
+
+  moved(dx) {
+    return new Food(this.x + dx, this.y, this.score, this.img)
+  }
+}
+
+class Chicken extends Food {
+  constructor(x, y) {
+    super(x, y, 100, chickenImg)
+  }
+}
+
+class Burger extends Food {
+  constructor(x, y) {
+    super(x, y, 100, burgerImg)
+  }
+}
+
+class Brocolli extends Food {
+  constructor(x, y) {
+    super(x, y, -10, brocolliImg)
   }
 }
 
 function checkCollision(player, food) {
   return player.y == food.y &&
-    (Math.abs(player.x - food.x) * 2) <= (10 + 10);
+    (Math.abs(player.x - food.x) * 2) <= (16 + 16);
 }
 
 class GameState {
@@ -40,24 +67,29 @@ class GameState {
     const consumedFoods = validFoods.filter(f => checkCollision(this.player, f))
     const newFoods = validFoods
       .filter(f => !checkCollision(this.player, f))
-      .map(f => new Food(f.x + increment, f.y, f.type));
+      .map(f => f.moved(increment));
     return new GameState(
       this.player,
       newFoods,
-      consumedFoods.map(f => foodScores.get(f.type)).reduce((x, y) => x + y, this.score)
+      consumedFoods.map(f => f.score).reduce((x, y) => x + y, this.score)
     );
   }
 }
 
 const initialGameState = new GameState(
-  new Player(10, 10),
-  [new Food(30, 10, 'chicken'), new Food(90, 20, 'brocolli')],
+  new Player(10, 16),
+  [
+    new Chicken(40, 16),
+    new Brocolli(90, 16 + 32),
+    new Burger(75, 16),
+    new Burger(110, 16 + 32)
+  ],
   0
 );
 var currentGameState = initialGameState;
 
-btn1Callback = () => currentGameState.player.y -= 10;
-btn2Callback = () => currentGameState.player.y += 10;
+btn1Callback = () => currentGameState.player.y -= 32;
+btn2Callback = () => currentGameState.player.y += 32;
 
 function renderScore(ctx, score) {
   ctx.fillStyle = 'black';
@@ -67,12 +99,11 @@ function renderScore(ctx, score) {
 
 function renderPlayer(ctx, player) {
   ctx.fillStyle = 'green';
-  ctx.fillRect(10, player.y, 10, 10);
+  ctx.fillRect(10, player.y, 16, 16);
 }
 
 function renderFood(ctx, food) {
-  ctx.fillStyle = 'red';
-  ctx.fillRect(food.x, food.y, 10, 10);
+  ctx.drawImage(food.img, food.x, food.y);
 }
 
 function renderFoods(ctx, foods) {
