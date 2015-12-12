@@ -4,6 +4,8 @@ function loadImage(path) {
   return img;
 }
 
+var fullBarImg = loadImage('res/fullbar.png');
+var emptyBarImg = loadImage('res/emptybar.png');
 var characterImg = loadImage('res/character.png');
 var backgroundImg = loadImage('res/background.png');
 var droppedPlateImg = loadImage('res/dropped.png');

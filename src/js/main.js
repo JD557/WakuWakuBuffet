@@ -19,10 +19,11 @@ function checkCollision(player, food) {
 }
 
 class GameState {
-  constructor(player, foods, score) {
+  constructor(player, foods, score, full) {
     this.player = player;
     this.foods = foods;
     this.score = score;
+    this.full = full;
     this.foodSpeed = -15.0;
   }
 
@@ -36,7 +37,8 @@ class GameState {
     return new GameState(
       this.player,
       newFoods,
-      consumedFoods.map(f => f.score).reduce((x, y) => x + y, this.score)
+      consumedFoods.map(f => f.score).reduce((x, y) => x + y, this.score),
+      consumedFoods.map(f => 0.05).reduce((x, y) => x + y, this.full)
     );
   }
 }
@@ -44,6 +46,7 @@ class GameState {
 const initialGameState = new GameState(
   new Player(10, 144),
   generateLevel(5),
+  0,
   0
 );
 var currentGameState = initialGameState;
