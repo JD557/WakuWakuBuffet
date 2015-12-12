@@ -79,6 +79,7 @@ function main(gameState) {
     start = timestamp;
     const newGameState = gameState.nextTick(delta);
     currentGameState = newGameState;
+    renderMenu(ctx);
     requestAnimationFrame(main(newGameState));
   };
 };

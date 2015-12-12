@@ -4,6 +4,9 @@ function loadImage(path) {
   return img;
 }
 
+var logoImg = loadImage('res/logo.png');
+var scrollBgImg = loadImage('res/menuScroll.png');
+
 var fullBarImg = loadImage('res/fullbar.png');
 var emptyBarImg = loadImage('res/emptybar.png');
 var characterImg = loadImage('res/character.png');

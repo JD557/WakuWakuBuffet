@@ -51,3 +51,13 @@ function renderGameState(ctx, state) {
   renderPlayer(ctx, state.player, state.full);
   renderScore(ctx, state.score, state.accum, state.full);
 }
+
+function renderMenu(ctx) {
+  const delta = Math.floor(Date.now()/50) % 256;
+  ctx.clearRect(0, 0, 256, 256);
+  ctx.drawImage(scrollBgImg, delta - 256, delta);
+  ctx.drawImage(scrollBgImg, delta, delta - 256);
+  ctx.drawImage(scrollBgImg, delta - 256, delta - 256);
+  ctx.drawImage(scrollBgImg, delta, delta);
+  ctx.drawImage(logoImg, 32, 16);
+}
