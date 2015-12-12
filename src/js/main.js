@@ -14,25 +14,45 @@ class Food {
   }
 }
 
+function checkCollision(player, food) {
+  return player.y == food.y &&
+    (Math.abs(player.x - food.x) * 2) <= (10 + 10);
+}
+
 class GameState {
-  constructor(player, foods) {
+  constructor(player, foods, score) {
     this.player = player;
     this.foods = foods;
-    this.foodSpeed = -3.0;
+    this.score = score;
+    this.foodSpeed = -5.0;
   }
 
   nextTick(delta) {
     const increment = this.foodSpeed * delta;
-    const newFoods = this.foods.map(f => new Food(f.x + increment, f.y));
-    return new GameState(this.player, newFoods);
+    const validFoods = this.foods.filter(f => f.x + 10 > 0);
+    const consumedFoods = validFoods.filter(f => checkCollision(this.player, f))
+    const newFoods = validFoods
+      .filter(f => !checkCollision(this.player, f))
+      .map(f => new Food(f.x + increment, f.y));
+    return new GameState(this.player, newFoods, this.score + consumedFoods.length * 100);
   }
 }
 
-const initialGameState = new GameState(new Player(10, 10), [new Food(30,10)]);
+const initialGameState = new GameState(
+  new Player(10, 10),
+  [new Food(30,10)],
+  0
+);
 var currentGameState = initialGameState;
 
 btn1Callback = () => currentGameState.player.y -= 10;
 btn2Callback = () => currentGameState.player.y += 10;
+
+function renderScore(ctx, score) {
+  ctx.fillStyle = 'black';
+  ctx.font = '16pt Arial';
+  ctx.fillText('Score: ' + score, 400, 20);
+}
 
 function renderPlayer(ctx, player) {
   ctx.fillStyle = 'green';
@@ -50,8 +70,9 @@ function renderFoods(ctx, foods) {
 
 function renderGameState(ctx, state) {
   ctx.clearRect(0, 0, 640, 480);
-  renderPlayer(ctx, state.player);
   renderFoods(ctx, state.foods);
+  renderPlayer(ctx, state.player);
+  renderScore(ctx, state.score);
 }
 
 var start = null;
