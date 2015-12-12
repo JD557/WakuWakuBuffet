@@ -23,13 +23,13 @@ class GameState {
     this.player = player;
     this.foods = foods;
     this.score = score;
-    this.foodSpeed = -10.0;
+    this.foodSpeed = -15.0;
   }
 
   nextTick(delta) {
     const increment = this.foodSpeed * delta;
-    const validFoods = this.foods.filter(f => f.x + 10 > 0);
-    const consumedFoods = validFoods.filter(f => checkCollision(this.player, f))
+    const validFoods = this.foods.filter(f => f.x > 16);
+    const consumedFoods = validFoods.filter(f => f.x > 25 && checkCollision(this.player, f))
     const newFoods = validFoods
       .filter(f => !checkCollision(this.player, f))
       .map(f => f.moved(increment));

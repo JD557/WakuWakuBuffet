@@ -5,11 +5,17 @@ function renderScore(ctx, score) {
 }
 
 function renderPlayer(ctx, player) {
-  ctx.drawImage(characterImg, 10, player.y);
+  const frame = Math.ceil(Date.now()/200) % 4
+  ctx.drawImage(characterImg, frame * 16, 0, 16, 32, 10, player.y, 16, 32);
 }
 
 function renderFood(ctx, food) {
-  ctx.drawImage(food.img, food.x, food.y);
+  if (food.x <= 25) {
+    ctx.drawImage(droppedPlateImg, 25, food.y);
+  }
+  else {
+    ctx.drawImage(food.img, food.x, food.y);
+  }
 }
 
 function renderFoods(ctx, foods) {
