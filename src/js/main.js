@@ -65,22 +65,29 @@ const initialGameState = new GameState(
 );
 var currentGameState = initialGameState;
 
+var start = null;
+var inGame = false;
+
 btn1Callback = () => currentGameState.player = currentGameState.player.goUp();
 btn2Callback = () => currentGameState.player = currentGameState.player.goDown();
-
-var start = null;
+btn12Callback = () => inGame = true;
 
 function main(gameState) {
   return function(timestamp) {
-    renderGameState(ctx, gameState)
-    if (!timestamp) timestamp = 0;
-    if (!start) start = timestamp;
-    const delta = (timestamp - start) / 1000.0;
-    start = timestamp;
-    const newGameState = gameState.nextTick(delta);
-    currentGameState = newGameState;
-    renderMenu(ctx);
-    requestAnimationFrame(main(newGameState));
+    if (inGame) {
+      renderGameState(ctx, gameState)
+      if (!timestamp) timestamp = 0;
+      if (!start) start = timestamp;
+      const delta = (timestamp - start) / 1000.0;
+      start = timestamp;
+      const newGameState = gameState.nextTick(delta);
+      currentGameState = newGameState;
+      requestAnimationFrame(main(newGameState));
+    }
+    else {
+      renderMenu(ctx);
+      requestAnimationFrame(main(initialGameState));
+    }
   };
 };
 

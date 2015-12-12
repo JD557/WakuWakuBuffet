@@ -6,6 +6,9 @@ function loadImage(path) {
 
 var logoImg = loadImage('res/logo.png');
 var scrollBgImg = loadImage('res/menuScroll.png');
+var keyAImg = loadImage('res/keyA.png');
+var keyZImg = loadImage('res/keyZ.png');
+var plusImg = loadImage('res/plus.png');
 
 var fullBarImg = loadImage('res/fullbar.png');
 var emptyBarImg = loadImage('res/emptybar.png');
