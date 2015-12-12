@@ -17,6 +17,12 @@ class Player {
     this.x = x;
     this.y = y;
   }
+  goUp() {
+    return new Player(this.x, Math.max(112, this.y - 32));
+  }
+  goDown() {
+    return new Player(this.x, Math.min(208, this.y + 32));
+  }
 }
 
 class Food {
@@ -50,6 +56,13 @@ class Brocolli extends Food {
   }
 }
 
+const level1 = [
+  new Chicken(40, 144),
+  new Brocolli(90, 144 + 32),
+  new Burger(75, 144),
+  new Burger(110, 144 + 32)
+];
+
 function checkCollision(player, food) {
   return player.y == food.y &&
     (Math.abs(player.x - food.x) * 2) <= (16 + 16);
@@ -80,18 +93,13 @@ class GameState {
 
 const initialGameState = new GameState(
   new Player(10, 144),
-  [
-    new Chicken(40, 144),
-    new Brocolli(90, 144 + 32),
-    new Burger(75, 144),
-    new Burger(110, 144 + 32)
-  ],
+  level1,
   0
 );
 var currentGameState = initialGameState;
 
-btn1Callback = () => currentGameState.player.y -= 32;
-btn2Callback = () => currentGameState.player.y += 32;
+btn1Callback = () => currentGameState.player = currentGameState.player.goUp();
+btn2Callback = () => currentGameState.player = currentGameState.player.goDown();
 
 function renderScore(ctx, score) {
   ctx.fillStyle = 'black';
