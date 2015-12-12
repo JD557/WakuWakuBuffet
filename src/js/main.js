@@ -13,13 +13,6 @@ class Player {
   }
 }
 
-const level1 = [
-  new Chicken(40, 144),
-  new Brocolli(90, 144 + 32),
-  new Burger(75, 144),
-  new Burger(110, 144 + 32)
-];
-
 function checkCollision(player, food) {
   return player.y == food.y &&
     (Math.abs(player.x - food.x) * 2) <= (16 + 16);
@@ -50,7 +43,7 @@ class GameState {
 
 const initialGameState = new GameState(
   new Player(10, 144),
-  level1,
+  generateLevel(5),
   0
 );
 var currentGameState = initialGameState;
