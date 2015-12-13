@@ -22,3 +22,4 @@ var burgerImg = loadImage('res/burger.png');
 var brocolliImg = loadImage('res/brocolli.png');
 
 var wakuwakuSnd = new Audio('res/wakuwaku.ogg');
+var readySnd = new Audio('res/ready.ogg');

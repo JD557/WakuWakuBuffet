@@ -55,6 +55,8 @@ class GameState {
     }
     if (newFoods.length == 0) {
       newLevel = newLevel + 1;
+      appState = 1;
+      readySnd.play();
       newFoods = generateLevel(5 * newLevel);
     }
     return new GameState(
@@ -88,7 +90,7 @@ var appState = 0;
 // 3 - Game Over
 var stateTimer = 0;
 var menuPage = 0;
-var highScore = 1000;
+var highScore = 10000;
 
 btn1Callback = function() {
   if (appState == 0) {
@@ -108,6 +110,7 @@ btn2Callback = function() {
 }
 btn12Callback = function() {if (appState == 0) {
   appState = 1;
+  readySnd.play();
   stateTimer = 0;
   wakuwakuSnd.pause();
   wakuwakuSnd.currentTime = 0;
