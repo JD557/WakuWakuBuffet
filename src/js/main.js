@@ -87,10 +87,25 @@ var appState = 0;
 // 2 - In Game
 // 3 - Game Over
 var stateTimer = 0;
+var menuPage = 0;
 var highScore = 1000;
 
-btn1Callback = function() {if (appState == 2) {currentGameState.player = currentGameState.player.goUp();}}
-btn2Callback = function() {if (appState == 2) {currentGameState.player = currentGameState.player.goDown();}}
+btn1Callback = function() {
+  if (appState == 0) {
+    menuPage = (menuPage + 1) % 5;
+  }
+  else if (appState == 2) {
+    currentGameState.player = currentGameState.player.goUp();
+  }
+}
+btn2Callback = function() {
+  if (appState == 0) {
+    menuPage = (menuPage + 4) % 5; // - 1
+  }
+  if (appState == 2) {
+    currentGameState.player = currentGameState.player.goDown();
+  }
+}
 btn12Callback = function() {if (appState == 0) {
   appState = 1;
   stateTimer = 0;
@@ -101,7 +116,7 @@ btn12Callback = function() {if (appState == 0) {
 function main(gameState) {
   return function(timestamp) {
     if (appState == 0) {
-      renderMenu(ctx, highScore);
+      renderMenu(ctx, highScore, menuPage);
       requestAnimationFrame(main(initialGameState));
     }
     else {

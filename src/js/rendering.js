@@ -63,7 +63,7 @@ function renderGameState(ctx, state) {
   renderScore(ctx, state.score, state.accum, state.full, state.capacity);
 }
 
-function renderMenu(ctx, highScore) {
+function renderMenu(ctx, highScore, page) {
   const delta = Math.floor(Date.now()/50) % 256;
   ctx.clearRect(0, 0, 256, 256);
   ctx.drawImage(scrollBgImg, delta - 256, delta);
@@ -77,5 +77,33 @@ function renderMenu(ctx, highScore) {
   ctx.fillStyle = 'black';
   ctx.font = '8px PressStart2P';
   ctx.fillText('Start Game!', 96, 240);
-  ctx.fillText('Hi-Score: ' + highScore, 96, 96);
+  ctx.fillText('Hi-Score: ' + highScore, 64, 96);
+  if (page == 0) {
+    ctx.fillText('Welcome to Waku Waku Buffet!', 8, 128);
+    ctx.fillText('(Press A to continue)', 8, 160);
+  }
+  else if (page == 1) {
+    ctx.fillText('We have 3 lanes full of', 8, 112);
+    ctx.fillText('delicious food!', 8, 128);
+    ctx.fillText('Move up and down with A and Z', 8, 144);
+    ctx.fillText('and eat as much as you can!', 8, 160);
+  }
+  else if (page == 2) {
+    ctx.fillText('Eat food you like:', 8, 112);
+    ctx.drawImage(chickenImg, 8, 112);
+    ctx.drawImage(burgerImg, 40, 112);
+    ctx.fillText('And avoid food you dislike:', 8, 144);
+    ctx.drawImage(brocolliImg, 8, 144);
+  }
+  else if (page == 3) {
+    ctx.fillText('If you get full, feel free', 8, 112);
+    ctx.fillText('to use the bathroom :)', 8, 128);
+    ctx.fillText('If you get too full we will', 8, 144);
+    ctx.fillText('have to kick you out :(', 8, 160);
+  }
+  else if (page == 4) {
+    ctx.fillText('Don\'t forget, you only get', 8, 112);
+    ctx.fillText('points if you flush ;)', 8, 128);
+    ctx.fillText('Itadakimasu!', 8, 160);
+  }
 }
