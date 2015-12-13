@@ -23,3 +23,6 @@ var brocolliImg = loadImage('res/brocolli.png');
 
 var wakuwakuSnd = new Audio('res/wakuwaku.ogg');
 var readySnd = new Audio('res/ready.ogg');
+var eatSnd = new Audio('res/eat.ogg');
+var badeatSnd = new Audio('res/badeat.ogg');
+var flushSnd = new Audio('res/flush.ogg');

@@ -48,7 +48,18 @@ class GameState {
     var newCapacity =
       consumedFoods.map(f => f.capacityModifier).reduce((x, y) => x - y, this.capacity);
     var newLevel = this.level;
+    if (consumedFoods.length > 0) {
+      eatSnd.pause();
+      eatSnd.currentTime = 0;
+      badeatSnd.pause();
+      badeatSnd.currentTime = 0;
+      if (newCapacity < this.capacity) {badeatSnd.play();}
+      else {eatSnd.play();}
+    }
     if (this.player.y == 112) {
+      if (newFull > 0.1) {
+        flushSnd.play();
+      }
       newAccum = 0;
       newScore = this.score + this.multiplier * currentAccum;
       newFull = 0;
