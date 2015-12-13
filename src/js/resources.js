@@ -20,3 +20,4 @@ var chickenImg = loadImage('res/chicken.png');
 var burgerImg = loadImage('res/burger.png');
 var brocolliImg = loadImage('res/brocolli.png');
 
+var wakuwakuSnd = new Audio('res/wakuwaku.ogg');

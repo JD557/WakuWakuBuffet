@@ -52,7 +52,7 @@ function renderGameState(ctx, state) {
   renderScore(ctx, state.score, state.accum, state.full);
 }
 
-function renderMenu(ctx) {
+function renderMenu(ctx, highScore) {
   const delta = Math.floor(Date.now()/50) % 256;
   ctx.clearRect(0, 0, 256, 256);
   ctx.drawImage(scrollBgImg, delta - 256, delta);
@@ -64,6 +64,7 @@ function renderMenu(ctx) {
   ctx.drawImage(plusImg, 128, 192);
   ctx.drawImage(keyZImg, 160, 192);
   ctx.fillStyle = 'black';
-  ctx.font = '12px Arial';
+  ctx.font = '9px Arial';
   ctx.fillText('Start Game!', 96, 240);
+  ctx.fillText('Hi-Score: ' + highScore, 96, 96);
 }

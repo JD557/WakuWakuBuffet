@@ -19,13 +19,15 @@ function checkCollision(player, food) {
 }
 
 class GameState {
-  constructor(player, foods, accum, score, full) {
+  constructor(player, foods, level, accum, score, full) {
     this.player = player;
     this.foods = foods;
+    this.level = level;
     this.accum = accum;
     this.score = score;
     this.full = Math.max(0.0, Math.min(full, 1.0));
-    this.foodSpeed = -15.0;
+    this.gameOver = full == 1.0;
+    this.foodSpeed = -25.0 * level;
     this.multiplier = Math.max(Math.ceil(this.full * 4), 1);
   }
 
@@ -33,7 +35,7 @@ class GameState {
     const increment = this.foodSpeed * delta;
     const validFoods = this.foods.filter(f => f.x > 16);
     const consumedFoods = validFoods.filter(f => f.x > 25 && checkCollision(this.player, f))
-    const newFoods = validFoods
+    var newFoods = validFoods
       .filter(f => !checkCollision(this.player, f))
       .map(f => f.moved(increment));
     const currentAccum =
@@ -41,14 +43,20 @@ class GameState {
     var newScore = this.score;
     var newAccum = currentAccum;
     var newFull = this.full + consumedFoods.length * 0.05;
+    var newLevel = this.level;
     if (this.player.y == 112) {
       newAccum = 0;
       newScore = this.score + this.multiplier * currentAccum;
       newFull = 0;
     }
+    if (newFoods.length == 0) {
+      newLevel = newLevel + 1;
+      newFoods = generateLevel(5 * newLevel);
+    }
     return new GameState(
       this.player,
       newFoods,
+      newLevel,
       newAccum,
       newScore,
       newFull
@@ -59,6 +67,7 @@ class GameState {
 const initialGameState = new GameState(
   new Player(10, 144),
   generateLevel(5),
+  1,
   0,
   0,
   0
@@ -67,6 +76,7 @@ var currentGameState = initialGameState;
 
 var start = null;
 var inGame = false;
+var highScore = 1000;
 
 btn1Callback = () => currentGameState.player = currentGameState.player.goUp();
 btn2Callback = () => currentGameState.player = currentGameState.player.goDown();
@@ -82,13 +92,20 @@ function main(gameState) {
       start = timestamp;
       const newGameState = gameState.nextTick(delta);
       currentGameState = newGameState;
+      if (newGameState.gameOver) {
+        if (newGameState.score > highScore) {
+          highScore = newGameState.score;
+        }
+        inGame = false;
+      }
       requestAnimationFrame(main(newGameState));
     }
     else {
-      renderMenu(ctx);
+      renderMenu(ctx, highScore);
       requestAnimationFrame(main(initialGameState));
     }
   };
 };
 
+wakuwakuSnd.play();
 main(initialGameState)();
