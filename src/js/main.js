@@ -91,7 +91,12 @@ var highScore = 1000;
 
 btn1Callback = function() {if (appState == 2) {currentGameState.player = currentGameState.player.goUp();}}
 btn2Callback = function() {if (appState == 2) {currentGameState.player = currentGameState.player.goDown();}}
-btn12Callback = function() {if (appState == 0) {appState = 1; stateTimer = 0;}}
+btn12Callback = function() {if (appState == 0) {
+  appState = 1;
+  stateTimer = 0;
+  wakuwakuSnd.pause();
+  wakuwakuSnd.currentTime = 0;
+}}
 
 function main(gameState) {
   return function(timestamp) {
