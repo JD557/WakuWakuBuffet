@@ -1,10 +1,18 @@
-function renderScore(ctx, score, accum, full) {
+function renderScore(ctx, score, accum, full, capacity) {
   ctx.fillStyle = 'black';
   ctx.font = '12px Arial';
   ctx.fillText('Score: ' + score, 16, 16);
   ctx.fillText('Accumulated: ' + accum, 16, 32);
-  ctx.drawImage(emptyBarImg, 128, 16);
-  ctx.drawImage(fullBarImg, 0, 0, 128 * full, 16, 128, 16, 128 * full, 16);
+  ctx.drawImage(emptyBarImg,
+      0, 0,
+      128 * capacity, 16,
+      128, 16,
+      128 * capacity, 16);
+  ctx.drawImage(fullBarImg,
+      0, 0,
+      128 * full, 16,
+      128, 16,
+      128 * full, 16);
 }
 
 function renderPlayer(ctx, player, full) {
@@ -49,7 +57,7 @@ function renderGameState(ctx, state) {
   ctx.drawImage(backgroundImg, 0, 0);
   renderFoods(ctx, state.foods);
   renderPlayer(ctx, state.player, state.full);
-  renderScore(ctx, state.score, state.accum, state.full);
+  renderScore(ctx, state.score, state.accum, state.full, state.capacity);
 }
 
 function renderMenu(ctx, highScore) {

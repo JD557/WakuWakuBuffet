@@ -1,30 +1,32 @@
 class Food {
-  constructor(x, y, score, img) {
+  constructor(x, y, score, fullnessModifier, capacityModifier, img) {
     this.x = x;
     this.y = y;
     this.score = score;
+    this.fullnessModifier = fullnessModifier;
+    this.capacityModifier = capacityModifier;
     this.img = img;
   }
 
   moved(dx) {
-    return new Food(this.x + dx, this.y, this.score, this.img)
+    return new Food(this.x + dx, this.y, this.score, this.fullnessModifier, this.capacityModifier, this.img)
   }
 }
 
 class Chicken extends Food {
   constructor(x, y) {
-    super(x, y, 100, chickenImg)
+    super(x, y, 100, 0.05, 0.0, chickenImg)
   }
 }
 
 class Burger extends Food {
   constructor(x, y) {
-    super(x, y, 100, burgerImg)
+    super(x, y, 100, 0.05, 0.0, burgerImg)
   }
 }
 
 class Brocolli extends Food {
   constructor(x, y) {
-    super(x, y, -10, brocolliImg)
+    super(x, y, 0, 0.0, 0.1, brocolliImg)
   }
 }

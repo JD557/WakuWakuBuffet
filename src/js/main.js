@@ -19,16 +19,17 @@ function checkCollision(player, food) {
 }
 
 class GameState {
-  constructor(player, foods, level, accum, score, full) {
+  constructor(player, foods, level, accum, score, full, capacity) {
     this.player = player;
     this.foods = foods;
     this.level = level;
     this.accum = accum;
     this.score = score;
     this.full = Math.max(0.0, Math.min(full, 1.0));
-    this.gameOver = full == 1.0;
+    this.capacity = capacity;
+    this.gameOver = full >= capacity;
     this.foodSpeed = -25.0 * level;
-    this.multiplier = Math.max(Math.ceil(this.full * 4), 1);
+    this.multiplier = Math.max(Math.ceil(this.full* 4), 1);
   }
 
   nextTick(delta) {
@@ -42,7 +43,10 @@ class GameState {
       consumedFoods.map(f => f.score).reduce((x, y) => x + y, this.accum);
     var newScore = this.score;
     var newAccum = currentAccum;
-    var newFull = this.full + consumedFoods.length * 0.05;
+    var newFull =
+      consumedFoods.map(f => f.fullnessModifier).reduce((x, y) => x + y, this.full);
+    var newCapacity =
+      consumedFoods.map(f => f.capacityModifier).reduce((x, y) => x - y, this.capacity);
     var newLevel = this.level;
     if (this.player.y == 112) {
       newAccum = 0;
@@ -59,7 +63,8 @@ class GameState {
       newLevel,
       newAccum,
       newScore,
-      newFull
+      newFull,
+      newCapacity
     );
   }
 }
@@ -70,7 +75,8 @@ const initialGameState = new GameState(
   1,
   0,
   0,
-  0
+  0.0,
+  1.0
 );
 var currentGameState = initialGameState;
 
