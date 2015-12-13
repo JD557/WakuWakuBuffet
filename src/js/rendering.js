@@ -1,18 +1,20 @@
 function renderScore(ctx, score, accum, full, capacity) {
   ctx.fillStyle = 'black';
-  ctx.font = '12px Arial';
-  ctx.fillText('Score: ' + score, 16, 16);
-  ctx.fillText('Accumulated: ' + accum, 16, 32);
-  ctx.drawImage(capacityBarImg, 128, 16);
+  ctx.font = '8px PressStart2P';
+
+  ctx.fillText('Score: ' + score, 8, 16);
+  ctx.fillText('Accumulated: ' + accum, 8, 32);
+
+  ctx.drawImage(capacityBarImg, 8, 48);
   ctx.drawImage(emptyBarImg,
       0, 0,
       128 * capacity, 16,
-      128, 16,
+      8, 48,
       128 * capacity, 16);
   ctx.drawImage(fullBarImg,
       0, 0,
       128 * full, 16,
-      128, 16,
+      8, 48,
       128 * full, 16);
 }
 
@@ -73,7 +75,7 @@ function renderMenu(ctx, highScore) {
   ctx.drawImage(plusImg, 128, 192);
   ctx.drawImage(keyZImg, 160, 192);
   ctx.fillStyle = 'black';
-  ctx.font = '9px Arial';
+  ctx.font = '8px PressStart2P';
   ctx.fillText('Start Game!', 96, 240);
   ctx.fillText('Hi-Score: ' + highScore, 96, 96);
 }
