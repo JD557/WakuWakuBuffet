@@ -15,9 +15,9 @@ function renderScore(ctx, score, accum, full, capacity) {
       128 * full, 16);
 }
 
-function renderPlayer(ctx, player, full) {
+function renderPlayer(ctx, player, full, capacity) {
   const frame = Math.ceil(Date.now()/200) % 4;
-  const state = Math.floor(full * 4);
+  const state = Math.floor(full / capacity * 4);
   if (player.y == 112) {
     ctx.drawImage(wcImg,
       16, 0,
@@ -56,7 +56,7 @@ function renderGameState(ctx, state) {
   ctx.clearRect(0, 0, 256, 256);
   ctx.drawImage(backgroundImg, 0, 0);
   renderFoods(ctx, state.foods);
-  renderPlayer(ctx, state.player, state.full);
+  renderPlayer(ctx, state.player, state.full, state.capacity);
   renderScore(ctx, state.score, state.accum, state.full, state.capacity);
 }
 
