@@ -3,6 +3,7 @@ function renderScore(ctx, score, accum, full, capacity) {
   ctx.font = '12px Arial';
   ctx.fillText('Score: ' + score, 16, 16);
   ctx.fillText('Accumulated: ' + accum, 16, 32);
+  ctx.drawImage(capacityBarImg, 128, 16);
   ctx.drawImage(emptyBarImg,
       0, 0,
       128 * capacity, 16,

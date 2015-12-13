@@ -12,6 +12,7 @@ var plusImg = loadImage('res/plus.png');
 
 var fullBarImg = loadImage('res/fullbar.png');
 var emptyBarImg = loadImage('res/emptybar.png');
+var capacityBarImg = loadImage('res/capacitybar.png');
 var characterImg = loadImage('res/character.png');
 var backgroundImg = loadImage('res/background.png');
 var wcImg = loadImage('res/wc.png');
