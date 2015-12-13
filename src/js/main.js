@@ -75,34 +75,50 @@ const initialGameState = new GameState(
 var currentGameState = initialGameState;
 
 var start = null;
-var inGame = false;
+var appState = 0;
+// 0 - In Menu
+// 1 - Ready
+// 2 - In Game
+// 3 - Game Over
+var stateTimer = 0;
 var highScore = 1000;
 
-btn1Callback = () => currentGameState.player = currentGameState.player.goUp();
-btn2Callback = () => currentGameState.player = currentGameState.player.goDown();
-btn12Callback = () => inGame = true;
+btn1Callback = function() {if (appState == 2) {currentGameState.player = currentGameState.player.goUp();}}
+btn2Callback = function() {if (appState == 2) {currentGameState.player = currentGameState.player.goDown();}}
+btn12Callback = function() {if (appState == 0) {appState = 1; stateTimer = 0;}}
 
 function main(gameState) {
   return function(timestamp) {
-    if (inGame) {
+    if (appState == 0) {
+      renderMenu(ctx, highScore);
+      requestAnimationFrame(main(initialGameState));
+    }
+    else {
       renderGameState(ctx, gameState)
       if (!timestamp) timestamp = 0;
       if (!start) start = timestamp;
       const delta = (timestamp - start) / 1000.0;
       start = timestamp;
-      const newGameState = gameState.nextTick(delta);
-      currentGameState = newGameState;
-      if (newGameState.gameOver) {
-        if (newGameState.score > highScore) {
-          highScore = newGameState.score;
+      if (appState == 1 || appState == 3) {
+        stateTimer += delta;
+        if (stateTimer >= 1.0) {
+          appState = (appState + 1) % 4;
+          stateTimer = 0;
         }
-        inGame = false;
+        requestAnimationFrame(main(gameState));
       }
-      requestAnimationFrame(main(newGameState));
-    }
-    else {
-      renderMenu(ctx, highScore);
-      requestAnimationFrame(main(initialGameState));
+      else {
+        const newGameState = gameState.nextTick(delta);
+        currentGameState = newGameState;
+        if (newGameState.gameOver) {
+          if (newGameState.score > highScore) {
+            highScore = newGameState.score;
+          }
+          appState = 3;
+          stateTimer = 0;
+        }
+        requestAnimationFrame(main(newGameState));
+      }
     }
   };
 };
