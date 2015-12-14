@@ -125,6 +125,9 @@ btn12Callback = function() {if (appState == 0) {
   stateTimer = 0;
   wakuwakuSnd.pause();
   wakuwakuSnd.currentTime = 0;
+  musicSnd.currentTime = 0;
+  musicSnd.loop = true;
+  musicSnd.play();
 }}
 
 function main(gameState) {
@@ -143,6 +146,9 @@ function main(gameState) {
         stateTimer += delta;
         if (stateTimer >= 1.0) {
           appState = (appState + 1) % 4;
+          if (appState == 0) {
+            wakuwakuSnd.play();
+          }
           stateTimer = 0;
         }
         requestAnimationFrame(main(gameState));
@@ -154,6 +160,7 @@ function main(gameState) {
           if (newGameState.score > highScore) {
             highScore = newGameState.score;
           }
+          musicSnd.pause();
           appState = 3;
           stateTimer = 0;
         }

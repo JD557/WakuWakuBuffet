@@ -26,3 +26,4 @@ var readySnd = new Audio('res/ready.ogg');
 var eatSnd = new Audio('res/eat.ogg');
 var badeatSnd = new Audio('res/badeat.ogg');
 var flushSnd = new Audio('res/flush.ogg');
+var musicSnd = new Audio('res/music.ogg');
