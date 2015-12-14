@@ -71,12 +71,12 @@ function renderMenu(ctx, highScore, page) {
   ctx.drawImage(scrollBgImg, delta - 256, delta - 256);
   ctx.drawImage(scrollBgImg, delta, delta);
   ctx.drawImage(logoImg, 32, 16);
-  ctx.drawImage(keyAImg, 96, 192);
-  ctx.drawImage(plusImg, 128, 192);
-  ctx.drawImage(keyZImg, 160, 192);
+  ctx.drawImage(keyAImg, 80, 192);
+  ctx.drawImage(plusImg, 112, 192);
+  ctx.drawImage(keyZImg, 144, 192);
   ctx.fillStyle = 'black';
   ctx.font = '8px PressStart2P';
-  ctx.fillText('Start Game!', 96, 240);
+  ctx.fillText('Start Game!', 80, 240);
   ctx.fillText('Hi-Score: ' + highScore, 64, 96);
   if (page == 0) {
     ctx.fillText('Welcome to Waku Waku Buffet!', 8, 128);
