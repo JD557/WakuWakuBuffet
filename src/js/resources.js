@@ -20,6 +20,8 @@ var droppedPlateImg = loadImage('res/dropped.png');
 var chickenImg = loadImage('res/chicken.png');
 var burgerImg = loadImage('res/burger.png');
 var brocolliImg = loadImage('res/brocolli.png');
+var sushiImg = loadImage('res/sushi.png');
+var soupImg = loadImage('res/soup.png');
 
 var wakuwakuSnd = new Audio('res/wakuwaku.ogg');
 var readySnd = new Audio('res/ready.ogg');

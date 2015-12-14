@@ -25,8 +25,20 @@ class Burger extends Food {
   }
 }
 
+class Sushi extends Food {
+  constructor(x, y) {
+    super(x, y, 100, 0.05, 0.0, sushiImg)
+  }
+}
+
 class Brocolli extends Food {
   constructor(x, y) {
     super(x, y, 0, 0.0, 0.1, brocolliImg)
+  }
+}
+
+class Soup extends Food {
+  constructor(x, y) {
+    super(x, y, 0, 0.0, 0.1, soupImg)
   }
 }

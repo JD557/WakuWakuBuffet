@@ -92,8 +92,10 @@ function renderMenu(ctx, highScore, page) {
     ctx.fillText('Eat food you like:', 8, 112);
     ctx.drawImage(chickenImg, 8, 112);
     ctx.drawImage(burgerImg, 40, 112);
+    ctx.drawImage(sushiImg, 72, 112);
     ctx.fillText('And avoid food you dislike:', 8, 144);
     ctx.drawImage(brocolliImg, 8, 144);
+    ctx.drawImage(soupImg, 40, 144);
   }
   else if (page == 3) {
     ctx.fillText('If you get full, feel free', 8, 112);
