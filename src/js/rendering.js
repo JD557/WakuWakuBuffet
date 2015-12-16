@@ -6,16 +6,20 @@ function renderScore(ctx, score, accum, full, capacity) {
   ctx.fillText('Accumulated: ' + accum, 8, 32);
 
   ctx.drawImage(capacityBarImg, 8, 48);
-  ctx.drawImage(emptyBarImg,
+  if (capacity > 0) {
+    ctx.drawImage(emptyBarImg,
       0, 0,
       128 * capacity, 16,
       8, 48,
       128 * capacity, 16);
-  ctx.drawImage(fullBarImg,
+  }
+  if (full > 0) {
+    ctx.drawImage(fullBarImg,
       0, 0,
       128 * full, 16,
       8, 48,
       128 * full, 16);
+  }
 }
 
 function renderPlayer(ctx, player, full, capacity) {
