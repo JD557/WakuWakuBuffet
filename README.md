@@ -1,7 +1,7 @@
 Waku Waku Buffet
 ================
 
-Game developed for [Ludum Dare 27](http://www.ludumdare.com/compo/ludum-dare-34/) 48h Compo (Theme: Growing / 2 Button Controls)
+Game developed for [Ludum Dare 34](http://www.ludumdare.com/compo/ludum-dare-34/) 48h Compo (Theme: Growing / 2 Button Controls)
 
 [Game page](http://www.ludumdare.com/compo/ludum-dare-34/?uid=9253)
 
